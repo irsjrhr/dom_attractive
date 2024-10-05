@@ -1,0 +1,240 @@
+<!doctype html>
+	<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="asset/css/style.css">
+		<link rel="stylesheet" type="text/css" href="asset/css/panel.css">
+		<link rel="stylesheet" type="text/css" href="asset/css/landing.css">
+		<script src="asset/js/jquery.min.js"></script>
+		<script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="asset/js/page.js"></script>
+		<script type="text/javascript" src="asset/js/app.js"></script>
+
+		<title> LMS - Apps </title>
+	</head>
+	<body>
+
+		<!-- Container page -->
+		<div class="container-fluid container_page">
+			<!-- Row page -->
+			<div class="row row_page">
+				
+				<!-- Content -->
+				<div class="col-12 content">
+					<header><!-- Diisi dengan javascript --></header>
+
+					<!-- Main content -->
+					<main class="main_container">
+
+						<div class="container-fluid container_section" style="padding-top: 20px;">
+
+							<div class="row justify-content-center">
+								<div class="col-12">
+									<h1 class="font_title">
+										Produk 
+									</h1>
+								</div>
+
+							</div>
+
+							<div class="row row_search justify-content-center">
+								<div class="col_search">
+									<div class="search_form">
+										<input type="text" class="form-control" name="" placeholder="Cari kelas apa?">
+										<button class="btn btn-default btn_search">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+
+								</div>
+								<div class="col col_btn">
+									<div class="content_btn">
+										<!-- 										<button class="btn btn-secondary">
+											<i class="fas fa-filter"></i>
+										</button> -->
+									</div>
+								</div>
+								<div class="col-12">
+									<p class="mt-2" style="color:grey"> Note : Cari Berdasarkan Nama Gitar </p>
+								</div>
+							</div>
+
+							<!-- row course -->
+							<div class="row row_course justify-content-center">
+								<!-- Diisi dengan javascript -->
+							</div>
+							<!-- end of row course -->
+
+						</div>
+
+
+					</main>
+					<!-- End Of Main content -->
+
+
+				</div>
+				<!-- End Of Content -->
+			</div>
+			<!-- End Of Row page -->
+
+		</div>
+		<!-- End Of Container page -->
+
+
+		<!-- Box Course -->
+		<div class="box_course box_course_responsive box_course_sample">
+			<a>
+				<div class="card text-center pt-5">
+					<div class="course_thumb">
+						<img src="asset/gam/gitar.jpg">
+					</div>
+					<div class="course_title text_flow_multi2">
+						Gitar
+					</div>
+					<div class="course_subtitle text_flow_multi3">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</div>
+					<div class="course_subtitle harga text_flow_multi3">
+						Rp 20.000
+					</div>
+
+				</div>
+
+			</a>
+
+		</div>
+		<!-- End Of Box Course -->
+
+		<div class="script"></div>
+
+		<script type="text/javascript">
+			function obj_data(img, nama, harga) {
+				return {
+					img : img,
+					nama : nama,
+					harga : harga
+				}
+			}
+			function formatRupiah(angka) {
+				// Pastikan angka adalah angka dan bukan string
+				if (isNaN(angka)) {
+					return "0";
+				}
+
+				// Format angka ke dalam format Rupiah
+				var rupiah = '';
+				var angkarev = angka.toString().split('').reverse().join('');
+				for (var i = 0; i < angkarev.length; i++) {
+					if (i % 3 === 0 && i !== 0) {
+						rupiah += '.';
+					}
+					rupiah += angkarev[i];
+				}
+				return 'Rp ' + rupiah.split('').reverse().join('');
+			}
+
+			function isMatch(str1, str2) {
+				return str1.toLowerCase() === str2.toLowerCase();
+			}
+
+			$(function(e) {
+
+
+				var data = [];
+
+				var banyak_gambar = 6;
+				for (var i = 0; i < banyak_gambar; i++) {
+					var j = i + 1;
+					data.push(obj_data( "gitar/"+j+".jpg", "Gitar " + j, 1000 * j));
+				}
+
+
+
+				for (var i = 0; i < data.length; i++) {
+					var data_obj = data[i];
+					create_box(data_obj);
+				}
+
+				$('.search_form').find('input').on('keyup', function(e) {
+					var input_search = $(this);
+
+					//Lakukan traversing data dan tampung
+					var search_keyword = input_search.val();
+
+					$('.row_course').html("");
+					if ( search_keyword.length > 0) {
+
+						var data_result = [];
+						for (var i = 0; i < data.length; i++) {
+							var row_obj = data[i];
+							var nama_data = row_obj.nama;
+							if (isMatch( search_keyword, nama_data )) {
+								data_result.push( row_obj );
+							}
+						}
+
+						//Kosongin section row
+						//Buat box berdasarkan data hasil cari
+						for (var i = 0; i < data_result.length; i++) {
+							var row_result = data_result[i];
+							create_box( row_result );
+						}
+
+					}else{
+						//Jika search keywordnya kosong, maka tampilkan dulu semunya 
+						//Kosongin section row
+						//Buat box berdasarkan data hasil cari
+						for (var i = 0; i < data.length; i++) {
+							var row_data = data[i];
+							create_box( row_data );
+						}
+
+					}
+
+
+				});
+
+
+
+				console.log( result );
+
+
+			})
+			function create_box( row_obj = {} ) {
+				var box_course_sample = $('.box_course_sample');
+
+				//Buat elemen baru
+				var box_course_el = box_course_sample.html();
+				var new_box = '<div class="box_course box_course_responsive">';
+				new_box += box_course_el; 
+				new_box += "</div>";
+
+				//Menambahkan
+				$('.row_course').append(new_box);
+
+				//Isi konten by data
+				var box_baru = $('.row_course').children().last();
+				box_baru.find('.course_title').text(row_obj.nama); 
+				box_baru.find('.harga').text( formatRupiah( row_obj.harga ) ); 
+				box_baru.find('img').attr( "src", row_obj.img ); 
+
+
+
+			}
+
+		</script>
+
+	</body>
+	</html>
+
+

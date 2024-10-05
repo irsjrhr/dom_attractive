@@ -1,0 +1,183 @@
+
+<!doctype html>
+	<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="asset/css/style.css">
+		<link rel="stylesheet" type="text/css" href="asset/css/auth.css">
+		<title> Auth </title>
+
+
+		<style type="text/css">
+		form{
+			padding: 10px;
+			box-sizing: border-box;
+			background: none;
+		}
+		.form_container{
+			background: #fff;
+			padding: 20px;
+			margin-bottom: 30px;
+		}
+		label{
+			font-weight: bolder;
+			margin-bottom: 20px;
+		}
+		.col_box{
+			padding: 20px;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+			height: 100px;
+			border: 1px solid #ccc;
+			position: relative;
+			margin-right: 10px;
+			border-radius: 20px;
+			margin-bottom: 10px;
+			cursor: pointer;
+			z-index: 1;
+			transition: .5s;
+			background: #fff;
+		}
+		.col_box:hover{
+			z-index: 2;
+			transform: scale(1.2);
+		}
+		.col_box.active{
+			background: #ccc;
+		}
+		.col_box input{
+			position: absolute;
+			top: 10px;
+			left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="img_banner">
+					<img src="asset/gam/backdrop.jpg">
+				</div>
+				<div class="col-md" style="padding: 0;">
+					<!-- Section Form -->
+					<section class="section_form">
+						<div class="container-fluid">
+							<div class="row justify-content-center">
+								<div class="col-md-9 col_container">
+									<img src="asset/gam/logo.png" class="logo_login">
+									<h2 class="title_login mb-1"> Survey </h2>
+									<p> Kasih tau tentang kamu ke kami agar lebih kenal! </p>
+
+
+									<form action="home.html" method="post" class="mt-5">
+
+										<div class="form_container form-row">
+											<div class="col-12">
+												<label> Apakah jenis favorite gitar kamu? </label>
+											</div>
+											<div class="col-md col_box">
+												<input class="input_ops" type="checkbox" name="elek">
+												Elektrik
+											</div>
+											<div class="col-md col_box">
+												<input class="input_ops" type="checkbox" name="non_elek">
+												Non Elektrik
+											</div>
+										</div>
+
+										<div class="form_container form-row">
+											<div class="col-12">
+												<label> Gitar mahal atau murah ?  </label>
+											</div>
+											<div class="col-md col_box">
+												<input class="input_ops" type="radio" name="price" value="mahal">
+												Mahal
+											</div>
+											<div class="col-md col_box">
+												<input class="input_ops" type="radio" name="price" value="murah">
+												Murah
+											</div>
+										</div>
+
+										<div class="button_section">
+											<div class="form-group">
+												<button class="btn btn-success form-control">
+													Submit
+												</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!-- End Of Section Form -->
+				</div>	
+			</div>
+		</div>
+	</main>
+
+
+	<script src="asset/js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function(e) {
+
+			//Mengatasi handle event bubling
+			$('input').on('change', function(e) {
+				console.log('input dimatikan dialihkan ke col boxnya agar menghidari bubling event');
+				var input =$(this);
+				var col_box = input.parents('.col_box');
+				col_box.click();
+				return false;
+			});
+			$('.col_box').on('click', function(e) {
+
+				// alert();
+				var col_box = $(this);
+				var input_el = col_box.find('input');
+
+
+
+
+
+				// Ubah status checkbox
+				input_el.prop('checked', !input_el.prop('checked'));
+
+				//Membuat dan menghilangkan penanda jika bukan input radio
+				if ( input_el.attr('type') == "radio" ) {
+					var form_container = col_box.parents('.form_container');
+					form_container.find('.col_box').removeClass('active');
+					if ( input_el.is(":checked") ) {
+						col_box.addClass('active');
+					}
+				}else{
+					var form_container = col_box.parents('.form_container');
+					if ( input_el.is(":checked") ) {
+						col_box.addClass('active');
+					}else{
+						col_box.removeClass('active');
+					}
+				}
+
+
+
+
+			});
+
+
+
+		});
+	</script>
+</body>
+</html>
